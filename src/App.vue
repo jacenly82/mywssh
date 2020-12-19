@@ -1,9 +1,18 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-12-17 20:18:49
+ * @LastEditTime: 2020-12-18 16:24:08
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \mywssh\src\App.vue
+-->
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </div>
+      <router-link to="/webssh">WebSSH</router-link>
+    </div> -->
     <router-view />
   </div>
 </template>
