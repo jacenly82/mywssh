@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-19 16:01:46
- * @LastEditTime: 2020-12-19 16:10:58
+ * @LastEditTime: 2020-12-19 19:19:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mywssh\vue.config.js
@@ -45,6 +45,9 @@ module.exports = {
         globalVars: {
           primary: "#333"
         }
+      },
+      scss: {
+        prependData: `@import "./src/styles/main.scss";`
       }
     }
   },
