@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-18 08:52:57
- * @LastEditTime: 2020-12-29 21:46:42
+ * @LastEditTime: 2021-01-03 11:01:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mywssh\src\components\wssh.vue
@@ -25,8 +25,8 @@ import { WebglAddon } from "xterm-addon-webgl";
 export default {
   data() {
     return {
-      websocket:"",
-      term:"",
+      websocket: "",
+      term: "",
       copy: "",
     };
   },
@@ -46,7 +46,7 @@ export default {
 
     fitAddon.fit();
     // term.fit();
-    this.term =term
+    this.term = term;
     window.addEventListener("resize", this.windowChange);
 
     let websocket = new WebSocket("ws://localhost:8000/webssh3"); //地址
@@ -154,21 +154,20 @@ export default {
     windowChange() {
       let height = document.body.clientHeight;
       let rows = height / 18;
-      
-      console.log(this.term)
+
+      console.log(this.term);
       const fitAddon = new FitAddon();
       this.term.loadAddon(fitAddon);
       fitAddon.fit();
       this.term.resize(this.term.cols, parseInt(rows)); //终端窗口重新设置大小 并触发term.on("resize"
-      console.log(this.term.cols, parseInt(rows))
+      console.log(this.term.cols, parseInt(rows));
       this.term.scrollToBottom();
     },
   },
-  beforeDestroy: function(){
+  beforeDestroy: function() {
     this.term.close();
     this.websocket.close();
-
-  }
+  },
 };
 </script>
 <style>
