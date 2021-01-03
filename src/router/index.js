@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-17 20:18:49
- * @LastEditTime: 2020-12-19 19:28:13
+ * @LastEditTime: 2020-12-29 11:45:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mywssh\src\router\index.js
@@ -14,15 +14,13 @@ import wssh from "../components/wssh.vue";
 // import MyWebSSH from "../views/MyWebSSH.vue"
 // import login from "../views/login/login.vue";
 
-
 Vue.use(VueRouter);
 
 const routes = [
-  // {
-  //   path: "/",
-  //   name: "Home",
-  //   component: Home
-  // },
+  {
+    path: "/",
+    redirect: "login"
+  },
   {
     path: "/mywebssh",
     name: "wssh",
@@ -31,6 +29,12 @@ const routes = [
   {
     path: "/login",
     name: "login",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/login/login.vue")
+  },
+  {
+    path: "/singup",
+    name: "singup",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/login/login.vue")
   }

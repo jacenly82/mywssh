@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-19 16:01:46
- * @LastEditTime: 2020-12-19 19:19:24
+ * @LastEditTime: 2020-12-29 14:15:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mywssh\vue.config.js
@@ -11,7 +11,7 @@ const path = require("path");
 const IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV);
 const resolve = dir => path.join(__dirname, dir);
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/site/vue-demo/" : "/", // 公共路径
+  publicPath: process.env.NODE_ENV === "production" ? "/mywssh/" : "/", // 公共路径
   indexPath: "index.html", // 相对于打包路径index.html的路径
   outputDir: process.env.outputDir || "dist", // 'dist', 生产环境构建文件的目录
   assetsDir: "static", // 相对于outputDir的静态资源(js、css、img、fonts)目录

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-18 08:52:57
- * @LastEditTime: 2020-12-19 16:15:13
+ * @LastEditTime: 2020-12-29 21:46:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mywssh\src\components\wssh.vue
@@ -25,6 +25,8 @@ import { WebglAddon } from "xterm-addon-webgl";
 export default {
   data() {
     return {
+      websocket:"",
+      term:"",
       copy: "",
     };
   },
@@ -44,9 +46,11 @@ export default {
 
     fitAddon.fit();
     // term.fit();
+    this.term =term
     window.addEventListener("resize", this.windowChange);
 
-    let websocket = new WebSocket("ws://localhost:8000/webssh"); //地址
+    let websocket = new WebSocket("ws://localhost:8000/webssh3"); //地址
+    this.websocket = websocket;
     // websocket.binaryType = "arraybuffer";
     //连接成功
     websocket.onopen = function(evt) {
@@ -71,7 +75,7 @@ export default {
       // console.log("onData")
       // console.log(key)
       // console.log("onData print key")
-      term.write(key)
+      // term.write(key);
       websocket.send(key);
     });
 
@@ -93,26 +97,26 @@ export default {
     //   websocket.send( key);
     // });
 
-    term.onKey(e => {
-      console.log(e);
-      const ev = e.domEvent;
-      // const printable = !ev.altKey && !ev.altGraphKey && !ev.metaKey // && !ev.ctrlKey && !ev.metaKey
-      // if (ev.keyCode === 13) {
-      //   term.prompt()
-      // } else
-      if (ev.keyCode === 8) {
-        // Do not delete the prompt
-        if (term._core.buffer.x > 2) {
-          term.write("\b \b");
-        }
-      }
-      // else //if (printable)
-      // {
-      //   term.write(e.key)
+    // term.onKey((e) => {
+    //   console.log(e);
+    //   const ev = e.domEvent;
+    //   // const printable = !ev.altKey && !ev.altGraphKey && !ev.metaKey // && !ev.ctrlKey && !ev.metaKey
+    //   // if (ev.keyCode === 13) {
+    //   //   term.prompt()
+    //   // } else
+    //   if (ev.keyCode === 8) {
+    //     // Do not delete the prompt
+    //     if (term._core.buffer.x > 2) {
+    //       term.write("\b \b");
+    //     }
+    //   }
+    //   // else //if (printable)
+    //   // {
+    //   //   term.write(e.key)
 
-      // }
-      // websocket.send(e.key);
-    });
+    //   // }
+    //   // websocket.send(e.key);
+    // });
     //返回
     websocket.onmessage = function(evt) {
       //   let str = new TextDecoder().decode(evt.data);
@@ -150,10 +154,23 @@ export default {
     windowChange() {
       let height = document.body.clientHeight;
       let rows = height / 18;
-      this.term.fit();
+      
+      console.log(this.term)
+      const fitAddon = new FitAddon();
+      this.term.loadAddon(fitAddon);
+      fitAddon.fit();
       this.term.resize(this.term.cols, parseInt(rows)); //终端窗口重新设置大小 并触发term.on("resize"
+      console.log(this.term.cols, parseInt(rows))
       this.term.scrollToBottom();
-    }
+    },
+  },
+  beforeDestroy: function(){
+    this.term.close();
+    this.websocket.close();
+
   }
 };
 </script>
+<style>
+@import url("../../node_modules/xterm/css/xterm.css");
+</style>
